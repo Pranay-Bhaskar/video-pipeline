@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       district: user.district,
     };
 
-    const token = signToken(payload);
+    const token = await signToken(payload);
     await setAuthCookie(token);
 
     return apiSuccess({ user: payload }, "Logged in successfully");

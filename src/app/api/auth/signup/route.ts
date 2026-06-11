@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       role: user.role,
     };
 
-    const token = signToken(payload);
+    const token = await signToken(payload);
     await setAuthCookie(token);
 
     return apiSuccess({ user: payload }, "Account created successfully", 201);
