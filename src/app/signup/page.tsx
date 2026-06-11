@@ -62,7 +62,7 @@ export default function SignupPage() {
           <div className="w-14 h-14 rounded-2xl bg-[#7c3aed] flex items-center justify-center mb-4 shadow-lg shadow-purple-900/40">
             <MapPin className="w-7 h-7 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-1">Join Karnataka</h1>
+          <h1 className="text-2xl font-bold text-white mb-1">Incredible Karnataka</h1>
           <p className="text-sm text-[#9ca3af]">Create your account</p>
         </div>
 

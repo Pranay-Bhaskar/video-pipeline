@@ -17,10 +17,10 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-UserSchema.pre("save", async function (next: any) {
-  if (!(this as any).isModified("password")) return next();
-  (this as any).password = await bcrypt.hash((this as any).password, 12);
-  next();
+UserSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+
+  this.password = await bcrypt.hash(this.password, 12);
 });
 
 UserSchema.methods.comparePassword = async function (candidate: string): Promise<boolean> {
