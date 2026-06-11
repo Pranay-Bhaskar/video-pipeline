@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --brand: #7c3aed;
+  --brand-mid: #a78bfa;
+  --brand-light: #ede9fe;
+  --bg-app: #0d0d16;
+  --bg-card: #161622;
+  --bg-surface: #1e1e2e;
+  --border: #2a2a3e;
+  --text-primary: #f4f4f8;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: #111;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#mobile-root {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--bg-app);
+  position: relative;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar { width: 0; height: 0; }
+
+.feed-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100dvh;
+}
+
+.feed-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+video { object-fit: cover; }
+
+button, a { -webkit-tap-highlight-color: transparent; cursor: pointer; }
+
+input, textarea, select { outline: none; font-family: inherit; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #1e1e2e 25%, #2a2a3e 50%, #1e1e2e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
