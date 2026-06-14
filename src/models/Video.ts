@@ -12,7 +12,7 @@ export interface IVideoDocument extends Document {
   longitude?: number;
   videoUrl: string;
   thumbnailUrl?: string;
-  firebasePath: string;
+  cloudinaryPath: string;
   creatorId: Types.ObjectId;
   status: VideoStatus;
   rejectionReason?: string;
@@ -41,7 +41,7 @@ const VideoSchema = new Schema<IVideoDocument>(
     longitude: { type: Number },
     videoUrl: { type: String, required: true },
     thumbnailUrl: { type: String },
-    firebasePath: { type: String, required: true },
+    cloudinaryPath: { type: String, required: true },
     creatorId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     status: {
       type: String,

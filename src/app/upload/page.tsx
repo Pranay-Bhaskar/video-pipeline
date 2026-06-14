@@ -6,7 +6,7 @@ import {
   Upload, X, CheckCircle, Loader2, CloudUpload,
   MapPin, Tag, ChevronDown, ArrowLeft
 } from "lucide-react";
-import { uploadVideo, generateVideoPath } from "@/lib/firebase/upload";
+import { uploadVideo, generateVideoPath } from "@/lib/cloudinary/upload";
 import { useAuth } from "@/features/auth/AuthContext";
 import { CATEGORIES, KARNATAKA_DISTRICTS, ALLOWED_VIDEO_TYPES, MAX_VIDEO_SIZE } from "@/constants";
 import { cn } from "@/lib/utils";
@@ -70,7 +70,7 @@ export default function UploadPage() {
     setStep("uploading");
     try {
       const path = generateVideoPath(user.id, file.name);
-      const { downloadURL, firebasePath } = await uploadVideo(file, path, setProgress);
+      const { downloadURL, cloudinaryPath, publicId } = await uploadVideo(file, path, setProgress);
 
       const res = await fetch("/api/videos", {
         method: "POST",
@@ -79,7 +79,8 @@ export default function UploadPage() {
           ...form,
           tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
           videoUrl: downloadURL,
-          firebasePath,
+          cloudinaryPath: cloudinaryPath,  // ✅ Add this
+          publicId: publicId,              // ✅ Add this
           latitude: form.latitude ? parseFloat(form.latitude) : undefined,
           longitude: form.longitude ? parseFloat(form.longitude) : undefined,
         }),
