@@ -79,8 +79,8 @@ export default function UploadPage() {
           ...form,
           tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
           videoUrl: downloadURL,
-          cloudinaryPath: cloudinaryPath,  // ✅ Add this
-          publicId: publicId,              // ✅ Add this
+          cloudinaryPath: cloudinaryPath,  
+          publicId: publicId,    
           latitude: form.latitude ? parseFloat(form.latitude) : undefined,
           longitude: form.longitude ? parseFloat(form.longitude) : undefined,
         }),
