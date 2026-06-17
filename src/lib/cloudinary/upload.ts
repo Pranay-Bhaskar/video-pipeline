@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { cloudinaryConfig } from './config';
 
-// ✅ ADD THIS FUNCTION
 export function generateVideoPath(creatorId: string, fileName: string): string {
   const timestamp = Date.now();
   const sanitized = fileName.replace(/[^a-zA-Z0-9.]/g, '_');
@@ -18,8 +17,7 @@ export async function uploadVideo(
   formData.append('upload_preset', 'video_upload_preset');
   formData.append('public_id', path);
   formData.append('resource_type', 'video');
-  
-  // ✅ FIX: Check if apiKey exists
+
   if (cloudinaryConfig.apiKey) {
     formData.append('api_key', cloudinaryConfig.apiKey);
   }

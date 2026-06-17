@@ -5,14 +5,12 @@ import { getAuthUser } from "@/lib/auth/jwt";
 import { apiError, apiSuccess } from "@/lib/utils";
 import { FEED_PAGE_SIZE } from "@/constants";
 
-
-// GET /api/videos — public feed (approved only)
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page") || "1");
-    const limit = parseInt(searchParams.get("limit") || String(FEED_PAGE_SIZE));
+    const limit = parseInt(searchParams.get("limit") || "10");
     const category = searchParams.get("category");
     const district = searchParams.get("district");
     const skip = (page - 1) * limit;
@@ -47,8 +45,6 @@ export async function GET(req: NextRequest) {
   }
 }
 
-
-// POST /api/videos — save video metadata after Cloudinary upload
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
