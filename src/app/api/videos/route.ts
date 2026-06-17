@@ -5,6 +5,7 @@ import { getAuthUser } from "@/lib/auth/jwt";
 import { apiError, apiSuccess } from "@/lib/utils";
 import { FEED_PAGE_SIZE } from "@/constants";
 
+
 // GET /api/videos — public feed (approved only)
 export async function GET(req: NextRequest) {
   try {
@@ -16,9 +17,11 @@ export async function GET(req: NextRequest) {
     const district = searchParams.get("district");
     const skip = (page - 1) * limit;
 
+
     const query: Record<string, unknown> = { status: "APPROVED" };
     if (category) query.category = category;
     if (district) query.district = district;
+
 
     const [videos, total] = await Promise.all([
       Video.find(query)
@@ -29,6 +32,7 @@ export async function GET(req: NextRequest) {
         .lean(),
       Video.countDocuments(query),
     ]);
+
 
     return apiSuccess({
       videos,
@@ -43,7 +47,8 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST /api/videos — save video metadata after Firebase upload
+
+// POST /api/videos — save video metadata after Cloudinary upload
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
@@ -51,12 +56,15 @@ export async function POST(req: NextRequest) {
     if (!user) return apiError("Not authenticated", 401);
     if (user.role !== "CREATOR") return apiError("Only creators can upload videos", 403);
 
-    const body = await req.json();
-    const { title, description, category, placeName, district, latitude, longitude, tags, videoUrl, firebasePath } = body;
 
-    if (!title || !description || !category || !placeName || !district || !videoUrl || !firebasePath) {
+    const body = await req.json();
+    const { title, description, category, placeName, district, latitude, longitude, tags, videoUrl, cloudinaryPath, publicId } = body;
+
+
+    if (!title || !description || !category || !placeName || !district || !videoUrl || !cloudinaryPath) {
       return apiError("Missing required fields", 400);
     }
+
 
     const video = await Video.create({
       title: title.trim(),
@@ -68,10 +76,12 @@ export async function POST(req: NextRequest) {
       longitude: longitude ? parseFloat(longitude) : undefined,
       tags: tags || [],
       videoUrl,
-      firebasePath,
+      cloudinaryPath,
+      publicId,
       creatorId: user.id,
       status: "PENDING",
     });
+
 
     return apiSuccess({ video }, "Video uploaded successfully. Pending admin review.", 201);
   } catch (err) {
