@@ -16,17 +16,12 @@ export async function uploadVideo(
   formData.append('file', file);
   formData.append('upload_preset', 'video_upload_preset');
   formData.append('public_id', path);
-  formData.append('resource_type', 'video');
 
   const url = `https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloudName}/video/upload`;
 
   onProgress(0);
 
-  const response = await axios.post(url, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  const response = await axios.post(url, formData);
 
   onProgress(100);
 
