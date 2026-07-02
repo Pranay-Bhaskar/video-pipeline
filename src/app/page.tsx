@@ -1,6 +1,5 @@
-{/*}
 "use client";
-
+{/*
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -320,8 +319,6 @@ function HomePage() {
 */}
 
 
-
-"use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
