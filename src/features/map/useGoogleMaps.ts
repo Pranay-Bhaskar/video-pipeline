@@ -31,7 +31,7 @@ export function useGoogleMaps({
       if (!initialized) {
         setOptions({
           key: apiKey,
-          version: "weekly",
+          /*version: "weekly",*/
       });
 
         initialized = true;
